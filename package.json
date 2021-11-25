@@ -1,0 +1,19 @@
+{
+  "name": "jam-project-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitaliiptp/jam-project-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitaliiptp/jam-project-back/issues"
+  },
+  "homepage": "https://github.com/vitaliiptp/jam-project-back#readme"
+}
