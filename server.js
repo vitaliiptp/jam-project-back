@@ -163,26 +163,27 @@ app.get('/users/search', (req, res) => {
   let genre = req.query.genre;
   let user_name = req.query.user_name;
   let skill_level = req.query.level;
-  let sql = "SELECT * FROM profiles p INNER JOIN users WHERE profiles.user_id = users.id"
+  let sql = "SELECT * FROM profiles INNER JOIN users WHERE profiles.user_id = users.id"
   let sqlValues = [];
-  
+  console.log(req.query)
   if (instrument) {
-    sql += "AND instrument=?";
+    sql += " AND instrument=?";
     sqlValues.push(instrument);
- 
-  } else if (city) {
-    sql += "AND city=?";
+    
+  } if (city) {
+    sql += " AND city=?";
     sqlValues.push(city);
-  } else if (genre) {
-    sql += "AND genre=?";
+  } if (genre) {
+    sql += " AND genre=?";
     sqlValues.push(genre);
-  } else if (user_name) {
-    sql += "AND user_name=?";
+  } if (user_name) {
+    sql += " AND user_name=?";
     sqlValues.push(skill_level);
-  } else if (skill_level) {
-    sql += "AND skill_level=?";
+  } if (skill_level) {
+    sql += " AND skill_level=?";
     sqlValues.push(skill_level);
   } 
+  console.log(sql);
   connection.query(sql, sqlValues, (err, result) => {
     
     if (err) {
