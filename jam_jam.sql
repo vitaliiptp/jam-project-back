@@ -15,8 +15,8 @@ CREATE TABLE `follow` (
   UNIQUE KEY `id` (`id`),
   KEY `fk_user_follow_user_id` (`user_id`),
   KEY `fk_user_follow_following` (`follow_user_id`),
-  CONSTRAINT `fk_user_follow_following` FOREIGN KEY (`follow_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `fk_user_follow_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `fk_user_follow_following` FOREIGN KEY (`follow_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_user_follow_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `profiles` (
@@ -36,10 +36,10 @@ CREATE TABLE `profiles` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `fk_user_profiles` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `fk_user_profiles` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_name` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
@@ -59,22 +59,22 @@ INSERT INTO `follow` (`id`, `user_id`, `follow_user_id`) VALUES
 (5, 3, 1);
 
 INSERT INTO `profiles` (`id`, `user_id`, `picture`, `city`, `latitude`, `longitude`, `skill_level`, `contact_phone`, `contact_mail`, `biography`, `instrument`, `genre`, `music_sample`) VALUES
-(1, 1, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'beginner', '1233', 'user1@gmail.com', 'blablablab', 'guitar', NULL, 'https://soundcloud.com/introspectivachannel/saebius-a-thousand-changes');
+(1, 1, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'beginner', '1233', 'user1@gmail.com', 'blablablab', 'guitar', 'jazz', 'https://soundcloud.com/introspectivachannel/saebius-a-thousand-changes');
 INSERT INTO `profiles` (`id`, `user_id`, `picture`, `city`, `latitude`, `longitude`, `skill_level`, `contact_phone`, `contact_mail`, `biography`, `instrument`, `genre`, `music_sample`) VALUES
-(2, 2, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'beginner', '3454534', 'user2@gmail.com', 'blablablab', 'bass', NULL, 'https://soundcloud.com/introspectivachannel/o-floating-machine-o');
+(2, 2, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'beginner', '3454534', 'user2@gmail.com', 'blablablab', 'bass', 'jazz', 'https://soundcloud.com/introspectivachannel/o-floating-machine-o');
 INSERT INTO `profiles` (`id`, `user_id`, `picture`, `city`, `latitude`, `longitude`, `skill_level`, `contact_phone`, `contact_mail`, `biography`, `instrument`, `genre`, `music_sample`) VALUES
-(3, 3, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'beginner', '234234', 'user3@gmail.com', 'blablablab', 'drum', NULL, 'https://soundcloud.com/jaycoba/space-disco-session-2-vinyl-by-simplexia');
+(3, 3, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'beginner', '234234', 'user3@gmail.com', 'blablablab', 'drum', 'jazz', 'https://soundcloud.com/jaycoba/space-disco-session-2-vinyl-by-simplexia');
 INSERT INTO `profiles` (`id`, `user_id`, `picture`, `city`, `latitude`, `longitude`, `skill_level`, `contact_phone`, `contact_mail`, `biography`, `instrument`, `genre`, `music_sample`) VALUES
-(4, 4, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'advance', '153452', 'user4@gmail.com', 'blablablab', 'singer', NULL, NULL),
-(5, 5, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'advance', '2354234', 'user5@gmail.com', 'blablablab', 'gutar', NULL, NULL);
+(4, 4, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'advance', '153452', 'user4@gmail.com', 'blablablab', 'singer', 'jazz', NULL),
+(5, 5, 'https://dummyimage.com/200x280', 'Berlin', NULL, NULL, 'advance', '2354234', 'user5@gmail.com', 'blablablab', 'guitar', 'jazz', NULL);
 
-INSERT INTO `user` (`id`, `user_name`, `password`, `email`) VALUES
+INSERT INTO `users` (`id`, `user_name`, `password`, `email`) VALUES
 (1, 'user1', '1234', 'user1@gmail.com');
-INSERT INTO `user` (`id`, `user_name`, `password`, `email`) VALUES
+INSERT INTO `users` (`id`, `user_name`, `password`, `email`) VALUES
 (2, 'user2', '1234', 'user2@gmail.com');
-INSERT INTO `user` (`id`, `user_name`, `password`, `email`) VALUES
+INSERT INTO `users` (`id`, `user_name`, `password`, `email`) VALUES
 (3, 'user3', '1234', 'user3@gmail.com');
-INSERT INTO `user` (`id`, `user_name`, `password`, `email`) VALUES
+INSERT INTO `users` (`id`, `user_name`, `password`, `email`) VALUES
 (4, 'user4', '1234', 'user4@gmail.com'),
 (5, 'user5', '1234', 'user5@gmail.com');
 
