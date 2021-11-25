@@ -156,21 +156,26 @@ app.get('/logout', (req, res) => {
   }
 });
 
-// search
-app.get('/users', (req, res) => {
-  let instrument = req.query.instrument;
-  let location = req.query.location;
-  let genre = req.query.genre;
-
-  if (instrument) {
-    connection.query(
-      'SELECT id FROM instruments WHERE instrument = ?;',
-      instrument,
-      (err, response) => {
-        //
+// set profile page
+app.post('/users', (req, res) => {
+  let { userId, name, city, email, phone, level, genre, instrument, bio } =
+    req.body;
+  connection.query(
+    'INSERT INTO profiles (user_id, name, city, contact_mail, contact_phone, skill_level, genre, instrument, biography) VALUES (?,?,?,?,?,?,?,?,?)',
+    [userId, name, city, email, phone, level, genre, instrument, bio],
+    (err, response) => {
+      if (err) {
+        res
+          .status(400)
+          .send({ message: 'Sorry, something went wrong', error: err });
       }
-    );
-  }
+      if (response.affectedRows > 0) {
+        res
+          .status(200)
+          .send({ profileCreated: true, message: 'Profile created' });
+      }
+    }
+  );
 });
 
 // listen
