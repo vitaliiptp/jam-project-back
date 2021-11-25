@@ -1,4 +1,5 @@
 How to set up the Database:
+
 0. Pull/Clone this Repro to receive the dump file "jam_jam"
 1. First create a Database with the name "jam_jam" on your local machine.
 2. Select the Database "jam_jam" in TablePlus.
