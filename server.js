@@ -163,20 +163,36 @@ app.get('/users/search', (req, res) => {
   let genre = req.query.genre;
   let user_name = req.query.user_name;
   let skill_level = req.query.level;
-  let sql = "SELECT * FROM user u, profiles p, music_samples m, instrument i, genre g, follow f"
-  if (req.query.instrument) {
-    sql += " WHERE color=?";
-    sqlValues.push(req.query.color);
-
+  let sql = "SELECT * FROM profiles p INNER JOIN users WHERE profiles.user_id = users.id"
+  let sqlValues = [];
+  
   if (instrument) {
-    connection.query(
-      'SELECT id FROM instruments WHERE instrument = ?;',
-      instrument,
-      (err, response) => {
-        //
-      }
-    );
-  }
+    sql += "AND instrument=?";
+    sqlValues.push(instrument);
+ 
+  } else if (city) {
+    sql += "AND city=?";
+    sqlValues.push(city);
+  } else if (genre) {
+    sql += "AND genre=?";
+    sqlValues.push(genre);
+  } else if (user_name) {
+    sql += "AND user_name=?";
+    sqlValues.push(skill_level);
+  } else if (skill_level) {
+    sql += "AND skill_level=?";
+    sqlValues.push(skill_level);
+  } 
+  connection.query(sql, sqlValues, (err, result) => {
+    
+    if (err) {
+      res.status(500).send("Errror retrieving data from database");
+    } else if (result[0] === undefined) {
+      res.status(200).send("Cannot find movie");
+    } else {
+      res.status(200).json(result);
+    }
+  });
 });
 
 // listen
