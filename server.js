@@ -157,10 +157,16 @@ app.get('/logout', (req, res) => {
 });
 
 // search
-app.get('/users', (req, res) => {
+app.get('/users/search', (req, res) => {
   let instrument = req.query.instrument;
-  let location = req.query.location;
+  let city = req.query.city;
   let genre = req.query.genre;
+  let user_name = req.query.user_name;
+  let skill_level = req.query.level;
+  let sql = "SELECT * FROM user u, profiles p, music_samples m, instrument i, genre g, follow f"
+  if (req.query.instrument) {
+    sql += " WHERE color=?";
+    sqlValues.push(req.query.color);
 
   if (instrument) {
     connection.query(
