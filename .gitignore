@@ -1,2 +1,4 @@
-node_modules/
-mysql_data/
+
+/mysql_data
+/node_modules
+.env

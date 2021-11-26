@@ -44,7 +44,7 @@ app.get('/login', (req, res) => {
     console.log('logged in user: ', req.session.user);
     res.status(200).send({
       loggedIn: true,
-      userName: req.session.user[0].name,
+      userName: req.session.user[0].user_name,
       userId: req.session.user[0].id,
     });
   } else {
@@ -59,7 +59,7 @@ app.post('/register', (req, res) => {
   const password = req.body.password;
 
   connection.query(
-    'SELECT * FROM users WHERE name = ?;',
+    'SELECT * FROM users WHERE user_name = ?;',
     name,
     (err, result) => {
       if (err) {
@@ -78,7 +78,7 @@ app.post('/register', (req, res) => {
             console.log(err);
           }
           connection.query(
-            'INSERT INTO users (name, password) VALUES (?,?)',
+            'INSERT INTO users (user_name, password) VALUES (?,?)',
             [name, hashedPw],
             (err, response) => {
               if (err) {
@@ -105,7 +105,7 @@ app.post('/login', (req, res) => {
   const password = req.body.password;
 
   connection.query(
-    'SELECT * FROM users WHERE name = ?;',
+    'SELECT * FROM users WHERE user_name = ?;',
     name,
     (err, result) => {
       if (err) {
@@ -210,6 +210,7 @@ app.get('/users/search', (req, res) => {
     sql += ' AND skill_level=?';
     sqlValues.push(skill_level);
   }
+  console.log(sql);
   connection.query(sql, sqlValues, (err, result) => {
     if (err) {
       res.status(500).send('Errror retrieving data from database');
