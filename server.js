@@ -2,7 +2,7 @@ const connection = require('./db-config');
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -239,7 +239,7 @@ app.get('/users',(req,res) => {
 
 // search user's location
 app.get('/users/location', (req, res) => {
-  connection.promise().query('SELECT * FROM profiles')
+  connection.promise().query('SELECT p.picture, p.city, p.user_id, p.contact_mail, p.genre, p.skill_level, p.music_sample, p.latitude, p.longitude, u.user_name FROM profiles AS p LEFT JOIN users AS u ON u.id = p.user_id')
       .then((result) => {
         if(result[0].length) res.status(200).json(result[0]);
         else res.status(404).send('user not found')
