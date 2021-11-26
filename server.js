@@ -164,7 +164,7 @@ app.post('/users', (req, res) => {
     'INSERT INTO profiles (user_id, city, contact_mail, contact_phone, skill_level, genre, instrument, biography) VALUES (?,?,?,?,?,?,?,?)',
     [userId, city, email, phone, level, genre, instrument, bio],
     (err, response) => {
-      console.log(err, response);
+      console.log(err);
       if (err) {
         res
           .status(400)
@@ -214,12 +214,26 @@ app.get('/users/search', (req, res) => {
     if (err) {
       res.status(500).send('Errror retrieving data from database');
     } else if (result[0] === undefined) {
-      res.status(200).send('Cannot find movie');
+      res.status(200).send('Cannot find user');
     } else {
       res.status(200).json(result);
     }
   });
 });
-
+//get all users
+app.get('/users',(req,res) => {
+  connection.query("SELECT p.user_id, u.user_name, p.city,p.contact_mail,p.skill_level,p.instrument,p.genre,p.contact_phone,p.picture FROM profiles p JOIN users u ON p.user_id = u.id",
+  (err, result) => {
+    if (err) {
+      res.status(500).send('Errror retrieving data from database');
+    } else if (result[0] === undefined) {
+      res.status(400).send('Cannot find users');
+    } else {
+      res.status(200).json(result);
+    }
+  }
+  )
+  
+})
 // listen
 app.listen(port, () => console.log(`Server listening on Port ${port}`));
