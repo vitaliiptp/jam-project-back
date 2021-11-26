@@ -236,5 +236,16 @@ app.get('/users',(req,res) => {
   )
   
 })
+
+// search user's location
+app.get('/users/location', (req, res) => {
+  connection.promise().query('SELECT * FROM profiles')
+      .then((result) => {
+        if(result[0].length) res.status(200).json(result[0]);
+        else res.status(404).send('user not found')
+      }).catch((err) => {
+    res.status(500).send(`${err}: Error retrieving data from database`);
+  });
+});
 // listen
 app.listen(port, () => console.log(`Server listening on Port ${port}`));
